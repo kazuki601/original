@@ -19,17 +19,27 @@ class ItemController extends Controller
     }
 
     /**
+     * ホーム画面
+     */
+    public function homeIndex(Request $request)
+    {
+            $items = Item::where('status', 'active')->orderBy('created_at', 'desc')->take(3)->get();
+            $type = Item::TYPE;
+            return view('/home')->with([
+                'items' => $items,
+                'type' => $type,
+            ]);
+    }
+
+    /**
      * 商品一覧
      */
     public function index()
     {
         // 商品一覧取得
-        $items = Item
-            ::where('items.status', 'active')
-            ->select()
-            ->get();
-
-        return view('item.index', compact('items'));
+        $items = Item::paginate(5)->where('status', '=', 'active');
+        $type = Item::TYPE;
+        return view('item.index', compact('items', 'type'));
     }
 
     /**
@@ -42,6 +52,8 @@ class ItemController extends Controller
             // バリデーション
             $this->validate($request, [
                 'name' => 'required|max:100',
+                'type' => 'required',
+                'detail' => 'required|max:100',
             ]);
 
             // 商品登録
@@ -52,9 +64,64 @@ class ItemController extends Controller
                 'detail' => $request->detail,
             ]);
 
-            return redirect('/items');
+            return redirect('/item');
+        }
+        $type = Item::TYPE;
+        return view('item.add', compact('type'));
+    }
+
+    /**
+     * 商品編集画面
+     */
+    public function edit(Request $request)
+    {
+        $items = Item::where('id', '=', $request->id)->first();
+        $type = Item::TYPE;
+        return view('item.edit', compact('items', 'type'));
+    }
+
+     /**
+     * 商品編集
+     */
+    public function itemEdit(Request $request)
+    {
+        $items = Item::where('id', '=', $request->id)->first();
+        $type = Item::TYPE;
+        $typer = array_flip($type);
+        //dd($request);
+        $items->name = $request->name;
+        $items->type = $typer[$request->type];
+        $items->detail = $request->detail;
+        //$items->status = $request->status;
+        $items->save();
+        
+
+        return redirect('/item',);
+    }
+
+     /**
+     * 商品検索機能
+     */
+    public function getIndex(Request $rq)
+    {
+        $keyword = $rq->input('keyword');
+        $type = Item::TYPE;
+        $typer = array_flip($type);
+        $query = Item::query();
+
+        if(!empty($keyword))
+        {
+            $query->where('name','like','%'.$keyword.'%')->where('status', '=', 'active');
+            $query->orWhere('type','like',$keyword)->where('status', '=', 'active');
         }
 
-        return view('item.add');
+        $items = $query->orderBy('id','asc')->where('status', '=', 'active')->paginate(5, ["*"], 'data-page');
+        return view('item.index')->with([
+            'items' => $items,
+            'keyword' => $keyword,
+            'type' => $type,
+        ]);
     }
+
+    
 }
