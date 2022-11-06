@@ -37,7 +37,7 @@ class ItemController extends Controller
     public function index()
     {
         // 商品一覧取得
-        $items = Item::paginate(5)->where('status', '=', 'active');
+        $items = Item::paginate(10)->where('status', '=', 'active');
         $type = Item::TYPE;
         return view('item.index', compact('items', 'type'));
     }
@@ -96,7 +96,18 @@ class ItemController extends Controller
         $items->save();
         
 
-        return redirect('/item',);
+        return redirect('/item');
+    }
+
+     /**
+     * 商品削除
+     */
+    public function itemDelete(Request $request)
+    {
+        $items = Item::where('id', '=', $request->id)->first();
+        $items->delete();
+
+        return redirect('/item');
     }
 
      /**
@@ -106,22 +117,23 @@ class ItemController extends Controller
     {
         $keyword = $rq->input('keyword');
         $type = Item::TYPE;
-        $typer = array_flip($type);
         $query = Item::query();
-
+        $select = $rq->select;
+        //dd($rq);
+        $query->where('status', '=', 'active');
         if(!empty($keyword))
         {
-            $query->where('name','like','%'.$keyword.'%')->where('status', '=', 'active');
-            $query->orWhere('type','like',$keyword)->where('status', '=', 'active');
+            $query->where('name','like','%'.$keyword.'%');
         }
-
-        $items = $query->orderBy('id','asc')->where('status', '=', 'active')->paginate(5, ["*"], 'data-page');
+        if(!empty($select))
+        {
+            $query->Where('type',$select);
+        }
+        $items = $query->orderBy('id','asc')->paginate(10, ["*"], 'data-page');
         return view('item.index')->with([
             'items' => $items,
             'keyword' => $keyword,
             'type' => $type,
         ]);
     }
-
-    
 }

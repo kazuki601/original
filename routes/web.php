@@ -25,6 +25,8 @@ Route::get('/', [App\Http\Controllers\ItemController::class, 'homeIndex']);
 Route::get('/edit/{id}', [App\Http\Controllers\ItemController::class, 'edit'])->name('edit');
 //編集
 Route::post('/itemEdit', [App\Http\Controllers\ItemController::class, 'itemEdit'])->name('itemEdit');
+//削除
+Route::post('/itemDelete', [App\Http\Controllers\ItemController::class, 'itemDelete'])->name('itemDelete');
 //商品検索
 Route::get('/item', [App\Http\Controllers\ItemController::class, 'getIndex'])->name('item');
 
