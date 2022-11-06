@@ -32,10 +32,15 @@
                         <option value="nonactive" @if(!$items->status)selected @endif>非表示</option>
                     </select>
                     </P> -->
-                <!-- 登録ボタン -->
+                <!-- 編集ボタン -->
                 <button type="submit" class="btn btn-danger" class="form-control">編集</button>
             </form>
-            </p>
+            <form action="{{ route('itemDelete') }}" method="post">
+                @csrf
+                <input type="text" name="id" value="{{ $items->id }}" class="form-control" hidden>
+                <!-- 削除ボタン -->
+                <button type="submit" class="btn btn-danger" class="form-control" style="margin-top: 15px;">削除</button>
+            </form>
         </div>
 @stop
 
