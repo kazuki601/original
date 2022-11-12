@@ -11,7 +11,7 @@
             <form action="{{ route('itemEdit') }}" method="POST">
                 @csrf
                 <input type="text" name="id" value="{{ $items->id }}" class="form-control" hidden>
-                <p>商品名<input type="text" name="name" value="{{ $items->name }}" class="form-control"></p>
+                <p>名前<input type="text" name="name" value="{{ $items->name }}" class="form-control"></p>
                 <P>種別
                     <select name="type" class="form-control">
                         <option>野菜</option>
@@ -33,7 +33,7 @@
                     </select>
                     </P> -->
                 <!-- 編集ボタン -->
-                <button type="submit" class="btn btn-danger" class="form-control">編集</button>
+                <button type="submit" class="btn btn-primary" class="form-control">編集</button>
             </form>
             <form action="{{ route('itemDelete') }}" method="post">
                 @csrf
