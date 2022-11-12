@@ -31,14 +31,15 @@
                 <div class="modal-header">
                     <h5 class="modal-title text-center" id="staticBackdropLabel">商品詳細</h5>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body" style="font-size: 25px;">
                     <p class="text-center" style="font-weight: bolder;">ID:<span class="item-id" style="font-weight: normal; margin-left: 5px"></span></p>
-                    <p class="text-center" style="font-weight: bolder;">名前:<span class="item-name" style="font-weight: normal; margin-left: 5px"></span><span style="margin-left: 20px;">種別:</span><span class="item-type" style="font-weight: normal; margin-left: 5px"></span></p>
+                    <p class="text-center" style="font-weight: bolder;">名前:<span class="item-name" style="font-weight: normal; margin-left: 5px"></span></p>
+                    <p class="text-center" style="font-weight: bolder;">種別:<span class="item-type" style="font-weight: normal; margin-left: 5px"></span></p>
                     <p class="text-center" style="font-weight: bolder;">詳細</p>
                     <p class="text-center"><span class="item-detail"></span></p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary btn-close" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary btn-close" data-bs-dismiss="modal">閉じる</button>
                 </div>
             </div>
         </div>
@@ -64,6 +65,7 @@
                                 <th>ID</th>
                                 <th>名前</th>
                                 <th>種別</th>
+                                <th>更新日</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -73,6 +75,7 @@
                                     <td>{{ $item->id }}</td>
                                     <td><button type="button" class="btn modal-button" data-itemid="{{ $item->id }}" data-itemdetail="{{ $item->detail }}" data-itemtype="{{ $type[$item->type] }}" data-itemname="{{ $item->name }}" data-bs-toggle="modal" data-bs-target="#staticBackdrop">{{ $item->name }}</button></td>
                                     <td>{{ $type[$item->type] }}</td>
+                                    <td>{{ $item->updated_at }}</td>
                                     <td><a href="/edit/{{ $item->id }}"> 編集 </a></td>
                                 </tr>
                             @endforeach
