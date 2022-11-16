@@ -54,6 +54,11 @@ class ItemController extends Controller
                 'name' => 'required|max:100',
                 'type' => 'required',
                 'detail' => 'required|max:500',
+            ],
+            [
+                'name.required' => '名前は必須です。',
+                'type.required'  => '種別は必須項目です。',
+                'detail.required'  => '種別は必須項目です。',
             ]);
 
             // 商品登録
@@ -85,14 +90,23 @@ class ItemController extends Controller
      */
     public function itemEdit(Request $request)
     {
+        $request->validate([
+            'name' => 'required|max:100',
+            'type' => 'required',
+            'detail' => 'required|max:500',
+        ],
+        [
+                'name.required' => '名前は必須です。',
+                'type.required'  => '種別は必須項目です。',
+                'detail.required'  => '種別は必須項目です。',
+        ]);
+
         $items = Item::where('id', '=', $request->id)->first();
         $type = Item::TYPE;
         $typer = array_flip($type);
-        //dd($request);
         $items->name = $request->name;
         $items->type = $typer[$request->type];
         $items->detail = $request->detail;
-        //$items->status = $request->status;
         $items->save();
         
 
