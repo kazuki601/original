@@ -8,12 +8,21 @@
 
 @section('content')
 <div class="container">
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                       @foreach ($errors->all() as $error)
+                          <li>{{ $error }}</li>
+                       @endforeach
+                    </ul>
+                </div>
+            @endif
             <form action="{{ route('itemEdit') }}" method="POST">
                 @csrf
                 <input type="text" name="id" value="{{ $items->id }}" class="form-control" hidden>
-                <p>名前<input type="text" name="name" value="{{ $items->name }}" class="form-control"></p>
+                <p>名前<input id="name" type="text" name="name" value="{{ $items->name }}" class="form-control"></p>
                 <P>種別
-                    <select name="type" class="form-control">
+                    <select id="type" name="type" class="form-control">
                         <option>野菜</option>
                         <option>肉類</option>
                         <option>魚類</option>
@@ -25,7 +34,7 @@
                         <option selected hidden>{{ $type[$items->type] }}</option>
                     </select>
                 </P>
-                <p>詳細<textarea type="text" class="form-control" name="detail" value="{{ $items->detail }}">{{ $items->detail }}</textarea></p>
+                <p>詳細<textarea id="detail" type="text" class="form-control" name="detail" value="{{ $items->detail }}">{{ $items->detail }}</textarea></p>
                 <!-- <P>ステータス
                     <select class="form-control" name="status" value="{{ $items->status }}">
                         <option value="active" @if($items->status)selected @endif>表示</option>
