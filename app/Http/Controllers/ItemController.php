@@ -58,7 +58,7 @@ class ItemController extends Controller
             [
                 'name.required' => '名前は必須です',
                 'type.required'  => '種別は必須です',
-                'detail.required'  => '種別は必須です',
+                'detail.required'  => '詳細は必須です',
             ]);
 
             // 商品登録
@@ -98,7 +98,7 @@ class ItemController extends Controller
         [
                 'name.required' => '名前は必須です',
                 'type.required'  => '種別は必須です',
-                'detail.required'  => '種別は必須です',
+                'detail.required'  => '詳細は必須です',
         ]);
 
         $items = Item::where('id', '=', $request->id)->first();
