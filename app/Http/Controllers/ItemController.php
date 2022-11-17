@@ -56,9 +56,9 @@ class ItemController extends Controller
                 'detail' => 'required|max:500',
             ],
             [
-                'name.required' => '名前は必須です。',
-                'type.required'  => '種別は必須項目です。',
-                'detail.required'  => '種別は必須項目です。',
+                'name.required' => '名前は必須です|名前は100文字以下で入力してください',
+                'type.required'  => '種別は必須項目です',
+                'detail.required'  => '種別は必須項目です|詳細は500文字以下で入力してください',
             ]);
 
             // 商品登録
@@ -96,9 +96,9 @@ class ItemController extends Controller
             'detail' => 'required|max:500',
         ],
         [
-                'name.required' => '名前は必須です。',
-                'type.required'  => '種別は必須項目です。',
-                'detail.required'  => '種別は必須項目です。',
+                'name.required' => '名前は必須です|名前は100文字以下で入力してください',
+                'type.required'  => '種別は必須です',
+                'detail.required'  => '種別は必須です|詳細は500文字以下で入力してください',
         ]);
 
         $items = Item::where('id', '=', $request->id)->first();
