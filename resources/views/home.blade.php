@@ -26,7 +26,7 @@
         </tr>
     @endforeach
     </table>
-    <img src="http://127.0.0.1:8000/vendor/adminlte/dist/img/main.jpg" alt="" style="width: 100%; height: auto;">
+    <img src="http://127.0.0.1:8000/public/vendor/adminlte/dist/img/main.jpg" alt="" style="width: 100%; height: auto;">
 @stop
 
 @section('css')
