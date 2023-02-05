@@ -18,6 +18,17 @@ class Item extends Model
         'detail',
     ];
 
+    const TYPE = [
+        1 => "野菜",
+        2 => "肉類",
+        3 => "魚類",
+        4 => "調味料",
+        5 => "インスタント",
+        6 => "菓子類",
+        7 => "冷凍食品",
+        8 => "飲料水"
+    ];
+
     /**
      * The attributes that should be hidden for serialization.
      *

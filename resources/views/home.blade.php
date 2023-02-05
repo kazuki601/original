@@ -3,11 +3,30 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>Dashboard</h1>
+    <h1 style="text-align: center; letter-spacing: 1em; font-weight: bold;">新着商品</h1>
 @stop
 
 @section('content')
-    <p>Welcome to this beautiful admin panel.</p>
+    <table class="table">
+        <tr>
+            <th>ID</th>
+            <th>名前</th>
+            <th>種別</th>
+            <th>登録日</th>
+            <th>更新日</th>
+        </tr>
+        <?php //dd($items); ?>  
+    @foreach($items as $item)
+        <tr>
+            <td>{{$item->id}}</td>
+            <td>{{$item->name}}</td>
+            <td>{{$type[$item->type]}}</td>
+            <td>{{$item->updated_at}}</td>
+            <td>{{$item->created_at}}</td>
+        </tr>
+    @endforeach
+    </table>
+    <img src="/assets/img/main.jpg" alt="" style="width: 100%; height: auto;">
 @stop
 
 @section('css')
